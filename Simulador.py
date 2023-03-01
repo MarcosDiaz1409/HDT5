@@ -40,6 +40,13 @@ def procesador(name, env, RAM, cpu, runtime_ins):
         time = end - tiempo_instrucciones
         all_times.append(time)
         
+def generator(env, cpu, RAM, interval, cantidad_procesos, runtime_ins):
+    
+    for i in range(cantidad_procesos):
+        
+        yield env.timeout(random.expovariate(1.0/interval))
+        env.process(procesador('Programa %d' %i, env, RAM, cpu, runtime_ins))        
+        
         
 # Ejecucion del programa
 print(" ..::  Bienvenido a la simulacion de un CPU ::.." )
