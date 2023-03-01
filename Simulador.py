@@ -1,5 +1,6 @@
 import simpy
 import random
+import statistics
 
 def procesador(name, env, RAM, cpu, runtime_ins):
     
@@ -118,6 +119,21 @@ while continuar == True:
     else:
         print("No hay opcion para esa cantidad")
         
+        
+    # Se ejecuta la simulacion
+    
+    all_times = []
+    RAM = simpy.Container(env, size, init=size)
+        
+    env.process(generator(env, cpu, RAM, interval, cantidad_procesos, runtime_ins))
+    env.run()
+    
+    # Devuelve el tiempo que se tardo en realizar el proceso y su desviacion estandar
+    tiempoTotal = statistics.mean(all_times)
+    stand_dev = statistics.stdev(all_times)
+    print( "El tiempo total para la ejecucion fue de ",tiempoTotal, " segundos")
+    print( "La desviacion estandar tiene un valor de: ", stand_dev )
+    
     continuar = False
             
                     
