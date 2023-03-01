@@ -53,6 +53,8 @@ def generator(env, cpu, RAM, interval, cantidad_procesos, runtime_ins):
 print(" ..::  Bienvenido a la simulacion de un CPU ::.." )
 
 continuar = True
+env = simpy.Environment()
+
 while continuar == True:
     #Pregunta por el tamaño de la RAM deseado
     print("Opciones de tamaño de RAM:  1) 100     2) 200")
@@ -69,10 +71,10 @@ while continuar == True:
     print("Opciones para cantidad de CPUs:  1) 1 CPU    2) 2 CPU ")
     op = input("\nEscoja una opcion:")
     if op == "1":
-        cant_cpu = 1
+        cpu = simpy.Resource(env, 1)
         
     elif op == "2":
-        cant_cpu = 2
+        cpu = simpy.Resource(env, 2)
     else:
         print("No hay opcion para esa cantidad")
         
